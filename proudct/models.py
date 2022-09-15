@@ -21,7 +21,7 @@ class Proudct(models.Model):
     date_publish=models.DateTimeField(_('Date'),auto_now=True)
     video=models.URLField(_('Video'),null=True,blank=True)
     category=models.ForeignKey('Category',verbose_name= _("Category"),related_name='product_category',on_delete=models.SET_NULL,null=True,blank=True)
-    brand=models.ForeignKey('Brand',verbose_name= _("Brand"),related_name='product_Brand',on_delete=models.SET_NULL,null=True,blank=True)
+    brand=models.ForeignKey('Brand',verbose_name= _("Brand"),related_name='product_brand',on_delete=models.SET_NULL,null=True,blank=True)
     
     def __str__(self) -> str:
         return self.name

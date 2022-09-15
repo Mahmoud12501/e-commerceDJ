@@ -1,22 +1,20 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import Brand,Category,ProudctImge,ProudctReview,Proudct
 # Register your models here.
 
-
+# adding image in Porudct
 class ProudctImgeInline(admin.TabularInline):
     model=ProudctImge 
 
-
-class ProudctAdmin(admin.ModelAdmin):
-    
+# smarnote
+class ProudctModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
+    summernote_fields = '__all__'
     inlines=[ProudctImgeInline]
 
 
 
-
-
-
-admin.site.register(Proudct,ProudctAdmin)
+admin.site.register(Proudct,ProudctModelAdmin)
 admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(ProudctImge)
