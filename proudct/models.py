@@ -18,6 +18,7 @@ class Proudct(models.Model):
     subtitle=models.CharField(_('Subtitle'),max_length=300)
     describtion=models.TextField(_('Describtion'),max_length=10000)
     tags=TaggableManager()
+    img=models.ImageField('Image',upload_to='ProudctImge/')
     date_publish=models.DateTimeField(_('Date'),auto_now=True)
     video=models.URLField(_('Video'),null=True,blank=True)
     category=models.ForeignKey('Category',verbose_name= _("Category"),related_name='product_category',on_delete=models.SET_NULL,null=True,blank=True)

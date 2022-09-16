@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-     path('proudct/', include('proudct.urls'))
+    path('proudct/', include('proudct.urls',namespace='proudct')),
+    # path('settings/', include('settings.urls',namespace='settings')),
 ]
 
 if settings.DEBUG:

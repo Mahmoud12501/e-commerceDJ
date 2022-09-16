@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_summernote', 
     'taggit',
     
-    'proudct'
+    'proudct',
+    'settings'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                # app_name.file_nmae.function_name
+                 'settings.company_context_processors.get_company_info',
             ],
         },
     },

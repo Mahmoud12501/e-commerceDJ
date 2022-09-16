@@ -6,10 +6,7 @@ from django.db.models import Count
 
 class ProudctListView(ListView):
     model=Proudct
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['imges']=ProudctImge.objects.all()
-        return context
+    
 
 class ProudctDetailView(DetailView):
     model = Proudct
