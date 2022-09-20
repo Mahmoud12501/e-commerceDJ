@@ -30,7 +30,7 @@
                   BRAND SINGLE PART START
         =======================================-->
         <div class="brand-single">
-            <a href="#"><img src="{{brand.img.url}}" alt="brand"></a>
+            <a href="#"><img src="{{category.img.url}}" alt="brand"></a>
             <a href="#"><h3>{{brand.name}}</h3></a>
             <ul>
                 <li class="fas fa-star active"></li>
@@ -40,7 +40,7 @@
                 <li class="fas fa-star"></li>
                 <li class="total">(163 ratings)</li>
             </ul>
-            <p>(({{brands|length}}) items)</p>
+            <p>(45 items)</p>
         </div>
         <!--=====================================
                   BRAND SINGLE PART END
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
-                {% for proudct in brand_proudcts %}
+                {% for proudct in category_proudct %}
                     <div class="col">
                         <div class="product-card">
                             <div class="product-media">
@@ -108,7 +108,7 @@
                                     <a href="product-video.html">(3)</a>
                                 </div>
                                 <h6 class="product-name">
-                                    <a href="product-video.html">{{proudct.name}}</a>
+                                    <a href="{% url 'proudct:proudct_detail' proudct.id %}">{{proudct.name}}</a>
                                 </h6>
                                 <h6 class="product-price">
                                     <del>$34</del>
@@ -125,9 +125,10 @@
                                 </div>
                             </div>
 
-                            {% endfor %}
+                            
                         </div>
                     </div>
+                    {% endfor %}
                   
                 </div>
                 <div class="row">

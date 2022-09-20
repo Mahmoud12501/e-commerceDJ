@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import render
 from .models import Proudct,ProudctImge,Brand,Category
 from django.views.generic import ListView,DetailView
@@ -37,7 +38,9 @@ class BrandDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         myproudct=self.get_object()
-        context["brand_proudct"]=Proudct.objects.filter(brand=myproudct)
+        context["brand_proudcts"]=Proudct.objects.filter(brand=myproudct)
+        context["brands"]=Brand.objects.all().annotate(proudct_count=Count('product_brand'))
+
         return context
 
 
@@ -46,9 +49,19 @@ class CategoryListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category']=Category.objects.all().annotate(category_count=Count('product_category'))
+        context['categorys']=Category.objects.all().annotate(proudct_count=Count('product_category'))
         return context
     
     
 
+class CategoryDetailView(DetailView):
+    model = Category
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        myproudct=self.get_object()
+        context["category_proudct"]=Proudct.objects.filter(category=myproudct)
+        
+        return context
 
