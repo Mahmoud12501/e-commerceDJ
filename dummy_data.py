@@ -8,7 +8,7 @@ django.setup()
 ############
 from faker import Faker
 import random
-from proudct.models import Category,Brand,Proudct
+from proudct.models import Category,Brand,Proudct,ProudctImge
 
 def seek_brand(n):
     fake=Faker()
@@ -36,7 +36,7 @@ def seek_category(n):
 
 def seek_proudct(n):
    fake=Faker()
-   imges=['1.jpg','2.jpg']
+   imges=['1.jpg','2.jpg','3.jpg']
    flag_type=['new','sale','feature']
 
    for _ in range(n):
@@ -45,11 +45,11 @@ def seek_proudct(n):
         sku=random.randint(1,10000)
         flag=flag_type[random.randint(0,2)]
         sub_title=fake.text(max_nb_chars=250)
-        describtion=fake.text(max_nb_chars=8000)
+        describtion=fake.text(max_nb_chars=7000)
         price=round(random.uniform(5,99.99),2)
         imge=f"proudct/{imges[random.randint(0,1)]}"
         
-        brand=Brand.objects.get(id=random.randint(1,10))
+        brand=Brand.objects.get(id=random.randint(1,5))
         category=Category.objects.get(id=random.randint(1,10))
        
         
@@ -67,7 +67,20 @@ def seek_proudct(n):
             
         )
       
+def seek_proudct_img(n):
+    fake=Faker()
+    imges=['1.jpg','2.jpg','3.jpg']
+    for _ in range(n):
+        imge=f"ProudctImge/{imges[random.randint(0,2)]}"
+        proudct=Proudct.objects.get(id=random.randint(1,1100))
+        
+        ProudctImge.objects.create(
+            proudct=proudct,
+            img=imge
+            
+        )
       
-# seek_brand(10)
-# seek_category(10)  
-seek_proudct(10)
+# seek_brand(5)
+# seek_category(5)  
+# seek_proudct(1000)
+seek_proudct_img(1100)

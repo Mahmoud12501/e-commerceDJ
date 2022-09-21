@@ -7,7 +7,7 @@ from django.db.models import Count
 
 class ProudctListView(ListView):
     model=Proudct
-    
+    paginate_by=150
 
 class ProudctDetailView(DetailView):
     model = Proudct
