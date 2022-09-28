@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
     path('proudct/', include('proudct.urls',namespace='proudct')),
+    path('__debug__/', include('debug_toolbar.urls')),
     # path('settings/', include('settings.urls',namespace='settings')),
 ]
 

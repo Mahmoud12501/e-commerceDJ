@@ -4,11 +4,19 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 # Create your models here.
+# Adam 
+
+
 PROUDCT_FLAG=(
     ('new','new'),
     ('sale','sale'),
     ('feature','feature'),
 )
+
+
+class AdamManger(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(price__gt=90)
 
 class Proudct(models.Model):
     name=models.CharField(_('Name'),max_length=80)
@@ -23,10 +31,26 @@ class Proudct(models.Model):
     video=models.URLField(_('Video'),null=True,blank=True)
     category=models.ForeignKey('Category',verbose_name= _("Category"),related_name='product_category',on_delete=models.SET_NULL,null=True,blank=True)
     brand=models.ForeignKey('Brand',verbose_name= _("Brand"),related_name='product_brand',on_delete=models.SET_NULL,null=True,blank=True)
+    ad_manger=AdamManger()
     
     def __str__(self) -> str:
         return self.name
     
+    
+    def can(self):
+        
+        return f"{self.name} >= {self.flag}"
+    
+    def get_avg(self):
+            rate_sum=0
+            proudct_review=self.review_product.all()
+            for review in proudct_review:
+                rate_sum +=review.rate
+            avg=rate_sum/len(proudct_review)
+            print(avg)
+            return avg
+        
+        
 class ProudctImge(models.Model):
     proudct=models.ForeignKey('Proudct',verbose_name=_('Proudct'),related_name='img_product',on_delete=models.CASCADE)
     img=models.ImageField(("Image"),upload_to="ProudctImge")

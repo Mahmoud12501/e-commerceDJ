@@ -10,6 +10,7 @@ urlpatterns = [
     path('brands/<int:pk>',views.BrandDetailView.as_view(),name='brand_detail'),
     path('categorys',views.CategoryListView.as_view(),name='category_list'),
     path('categorys/<int:pk>',views.CategoryDetailView.as_view(),name='category_detail'),
+    path("all",views.all_proudct,name="all")
 
     
 ]

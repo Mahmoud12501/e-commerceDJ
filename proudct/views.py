@@ -1,13 +1,34 @@
-from unicodedata import category
+
 from django.shortcuts import render
 from .models import Proudct,ProudctImge,Brand,Category
 from django.views.generic import ListView,DetailView
-from django.db.models import Count
+from django.db.models import Count , Q , F,Value
+from django.db.models.functions import Power
+from django.db.models.aggregates import Max,Sum
+
+
 # Create your views here.
+
+def all_proudct(request):
+    # objects=Proudct.objects.filter(price__gte=90)
+    # objects=Proudct.objects.filter(category__id__function=90)
+    # objects=Proudct.objects.filter(name__contains="ahmed")
+    # objects=Proudct.objects.filter(quantiy=F('price'))
+    # objects=Proudct.objects.order_by("name")
+    # objects=Proudct.objects.latest("name")
+    # objects=Proudct.objects.prefetch_related('category').all()
+    # objects=Proudct.objects.annotate(is_new=Value(True))
+    # objects=Proudct.objects.only("name",'price')
+    # objects=Proudct.objects.annotate(is_new=Power('price',0))
+    # objects=Proudct.ad_manger.all()
+    objects=Proudct.ad_manger.only("name",'price')
+
+    return render(request,"proudct/all_proudct.html",{"proudcts":objects})
+
 
 class ProudctListView(ListView):
     model=Proudct
-    paginate_by=150
+    paginate_by=10
 
 class ProudctDetailView(DetailView):
     model = Proudct
@@ -17,6 +38,7 @@ class ProudctDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         myProudct=self.get_object()
         context['imges']=ProudctImge.objects.filter(proudct=myProudct)
+        context['related']=Proudct.objects.filter(category=myProudct.category)[:20]
         return context
   
 
