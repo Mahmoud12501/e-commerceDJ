@@ -32,15 +32,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'accounts',
+    'django.contrib.admin',
     'django.contrib.auth',
+    
+    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
     'django_countries',
+    "bootstrap4",
     
     'django_summernote', 
     'taggit',
@@ -76,6 +79,7 @@ TEMPLATES = [
                 
                 # app_name.file_nmae.function_name
                  'settings.company_context_processors.get_company_info',
+                 'accounts.profile_context_processors.get_profile',
             ],
         },
     },
@@ -151,3 +155,10 @@ INTERNAL_IPS = [
 ]
 
 AUTHENTICATION_BACKENDS=['accounts.backends.EmailBaccend']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "mahmoudn12300@gmail.com" #sender's email-id
+EMAIL_HOST_PASSWORD ='uxbthxyhettdonxm'

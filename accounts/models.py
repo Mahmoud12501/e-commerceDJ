@@ -29,7 +29,7 @@ def phone_validat(value):
 # Create your models here.
 class Profile(models.Model):
     user=models.OneToOneField(User,related_name="user_profile",on_delete=models.CASCADE)
-    img=models.ImageField(upload_to=upload_img)
+    img=models.ImageField(upload_to=upload_img,null=True)
     
     code=models.CharField(max_length=15,default=generate_code)
     used_code=models.BooleanField(default=False)
