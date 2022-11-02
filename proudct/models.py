@@ -31,7 +31,7 @@ class Proudct(models.Model):
     video=models.URLField(_('Video'),null=True,blank=True)
     category=models.ForeignKey('Category',verbose_name= _("Category"),related_name='product_category',on_delete=models.SET_NULL,null=True,blank=True)
     brand=models.ForeignKey('Brand',verbose_name= _("Brand"),related_name='product_brand',on_delete=models.SET_NULL,null=True,blank=True)
-    ad_manger=AdamManger()
+    
     
     def __str__(self) -> str:
         return self.name
@@ -49,7 +49,13 @@ class Proudct(models.Model):
             avg=rate_sum/len(proudct_review)
             print(avg)
             return avg
-        
+    def image_img(self):
+     if self.img:
+        return u'<img src="%s" width="50" height="50" />' % self.img.url
+     else:
+        return '(Sin imagen)'
+    image_img.short_description = 'Thumb'
+    image_img.allow_tags = True
         
 class ProudctImge(models.Model):
     proudct=models.ForeignKey('Proudct',verbose_name=_('Proudct'),related_name='img_product',on_delete=models.CASCADE)
@@ -83,3 +89,6 @@ class ProudctReview(models.Model):
     def __str__(self) -> str:
         return str(self.proudct)
     
+class Test(models.Model):
+    name=models.CharField(max_length=20)
+    number=models.CharField(max_length=11)

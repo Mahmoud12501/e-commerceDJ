@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Brand,Category,ProudctImge,ProudctReview,Proudct
+from .models import Brand,Category,ProudctImge,ProudctReview,Proudct,Test
 # Register your models here.
 
 # adding image in Porudct
@@ -19,3 +19,5 @@ admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(ProudctImge)
 admin.site.register(ProudctReview)
+admin.site.register(Test)
+

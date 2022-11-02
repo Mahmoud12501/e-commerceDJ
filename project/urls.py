@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('accounts/', include('accounts.urls',namespace='accounts')),
@@ -25,6 +26,10 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('proudct/', include('proudct.urls',namespace='proudct')),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    
+    path('api-auth',include('rest_framework.urls')),
+    path('api-auth-token',obtain_auth_token),
     # path('settings/', include('settings.urls',namespace='settings')),
 ]
 

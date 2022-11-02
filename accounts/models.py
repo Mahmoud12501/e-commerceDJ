@@ -7,6 +7,7 @@ from django_countries.fields import CountryField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from utils.generatr_code import generate_code
+from rest_framework.authtoken.models import Token
 
 
 PHONE_TYPE=(
@@ -60,3 +61,9 @@ def create_profile(sender,instance,created,**kwargs):
             user=instance
         )
         
+@receiver(post_save,sender=User)
+def create_token(sender,instance,created,**kwargs):
+    if created:
+        Token.objects.create(
+            user=instance
+        )
