@@ -1,11 +1,11 @@
 
 from django.shortcuts import render
-from .models import Proudct,ProudctImge,Brand,Category
+from .models import Proudct,ProudctImge,Brand,Category,ProudctReview
 from django.views.generic import ListView,DetailView
 from django.db.models import Count , Q , F,Value
 from django.db.models.functions import Power
 from django.db.models.aggregates import Max,Sum
-
+from .forms import ReviewForm
 
 # Create your views here.
 
@@ -28,7 +28,7 @@ def all_proudct(request):
 
 class ProudctListView(ListView):
     model=Proudct
-    paginate_by=10
+    paginate_by=100
 
 class ProudctDetailView(DetailView):
     model = Proudct
@@ -39,6 +39,7 @@ class ProudctDetailView(DetailView):
         myProudct=self.get_object()
         context['imges']=ProudctImge.objects.filter(proudct=myProudct)
         context['related']=Proudct.objects.filter(category=myProudct.category)[:20]
+        context["reviews"]=ProudctReview.objects.filter(proudct=myProudct)
         return context
   
 
@@ -87,3 +88,26 @@ class CategoryDetailView(DetailView):
         
         return context
 
+
+from django.http import JsonResponse
+from django.template.loader import render_to_string 
+
+def add_review(request,id):
+    print("---------------------------------------------------")
+    print(request.POST)
+    proudct=Proudct.objects.get(id=id)
+    print("---------------------------------------------------")
+    if request.method =="POST":
+        print("$"*20)
+        form=ReviewForm(request.POST)
+        print("$"*20)
+        if form.is_valid():
+            print("$"*20)
+            myform=form.save(commit=False)
+            myform.user=request.user
+            myform.proudct=proudct
+            myform.save()
+            
+            reviews=ProudctReview.objects.filter(proudct=proudct)
+            html=render_to_string("include/reviews.html",{"reviews":reviews, request:request})
+            return JsonResponse({"result":html})

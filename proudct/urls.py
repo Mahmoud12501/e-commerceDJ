@@ -22,6 +22,10 @@ urlpatterns = [
     path('categorys',views.CategoryListView.as_view(),name='category_list'),
     path('categorys/<int:pk>',views.CategoryDetailView.as_view(),name='category_detail'),
     path("all",views.all_proudct,name="all"),
+    path("<int:id>/add_review",views.add_review,name='add_review'),
+    
+    
+    
     
     # api
     path('api_list',api.proudct_list_api),
