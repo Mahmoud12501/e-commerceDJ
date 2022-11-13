@@ -18,3 +18,18 @@ Delivery Address:
     -street
     -note
 
+
+order:
+ -code
+ -user
+ -status[recieved,processed,shipped,delivered]
+ -Order Time
+ -Delivery Time
+
+order_detail:
+    -order
+    -proudct
+    -quantiy
+    -total
+
+    

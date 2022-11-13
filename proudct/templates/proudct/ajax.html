@@ -1,0 +1,68 @@
+{% load static %}
+
+
+    
+<div class="tab-pane fade" id="tab-reve">
+    <h1>{{proudct.id}}</h1>
+    <div class="row">
+        <div class="col-lg-12">
+          <ul class="review-list" id="reviewDiv">
+            {% include 'include/reviews.html' %}
+          </ul>
+            <div class="product-details-frame">
+                <h3 class="frame-title">add your review</h3>
+                <form class="review-form" method="POST" action={% url 'proudct:add_review' proudct.id %} id="reviewForm1">
+                  {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="star-rating">
+                                <input type="radio" name="rate" value=5 id="star-1"><label for="star-1"></label>
+                                <input type="radio" name="rate" value=4 id="star-2"><label for="star-2"></label>
+                                <input type="radio" name="rate" value=3 id="star-3"><label for="star-3"></label>
+                                <input type="radio" name="rate" value=2 id="star-4"><label for="star-4"></label>
+                                <input type="radio" name="rate" value=1 id="star-5"><label for="star-5"></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <textarea class="form-control" name="review" placeholder="Describe"></textarea>
+                            </div>
+                        </div>
+                        <!-- <input type="submit" id="submit"> -->
+                        <button id="submit" class="btn btn-inline">
+                          <i class="icofont-water-drop"></i>
+                          <span>drop your review</span>
+                      </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$(document).ready(function(){
+            (document).on('submit','#reviewForm1',function(event){
+                event.preventDefault();
+                $.ajax({
+                    type:$(this).attr('method'),
+                    url:$(this).attr('action'),
+                    data:$(this).serialize(),
+                    dataType:'json',
+                    success:function(response){
+                        $('#reviewDiv').html(response['result'])
+                    },
+                    error:function(err){
+
+                        console.log(err);
+                    }
+                })
+
+            })
+
+    }
+    )
+</script>
+<!--=====================================
+          INTRO PART END
+=======================================-->

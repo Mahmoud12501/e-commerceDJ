@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'taggit',
     
     'proudct',
-    'settings'
+    'settings',
+    'orders'
 ]
 
 

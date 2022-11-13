@@ -118,17 +118,25 @@
                                   <li><a href="#" class="icofont-instagram" title="Instagram"></a></li>
                               </ul>
                           </div>
-                          <div class="details-add-group">
-                              <button class="product-add" title="Add to Cart">
-                                  <i class="fas fa-shopping-basket"></i>
-                                  <span>add to cart</span>
-                              </button>
-                              <div class="product-action">
-                                  <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                  <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                                  <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                              </div>
-                          </div>
+                          <form class="details-list-title" method="POST" action="{% url 'orders:add-cart' %}" >
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="quantity" class="col-sm-2 col-form-label">quantity</label>
+                                <input type="hidden" name="proudct_id" value="{{proudct.id}}">
+                                <div class="col-sm-10">
+                                  <input type="number" class="form-control" name="quantity" id="quantity" placeholder="quantity" value="1">
+                                  
+                                </div>
+                                <div class="details-add-group">
+                                    <button type="submit" class="product-add" title="Add to Cart">
+                                         <i class="fas fa-shopping-basket"></i> 
+                                        <span>add to cart</span>
+                                    </button>
+                                    
+                                </div>
+                            
+                          </form>
+                         
                           <div class="details-action-group">
                               <a class="details-wish wish" href="#" title="Add Your Wishlist">
                                   <i class="icofont-heart"></i>
@@ -213,12 +221,12 @@
               <div class="tab-pane fade" id="tab-reve">
                   <div class="row">
                       <div class="col-lg-12">
-                        <ul class="review-list" id="reviewDiv">
+                        <ul  id="reviewDiv" class="review-list" >
                           {% include 'include/reviews.html' %}
                         </ul>
                           <div class="product-details-frame">
                               <h3 class="frame-title">add your review</h3>
-                              <form class="review-form" method="POST" action={% url 'proudct:add_review' proudct.id %} id="reviewForm">
+                              <form class="review-form" method="POST" action={% url 'proudct:add_review' object.id %} id="ReviewFrom">
                                 {% csrf_token %}
                                   <div class="row">
                                       <div class="col-lg-12">
@@ -235,14 +243,11 @@
                                               <textarea class="form-control" name="review" placeholder="Describe"></textarea>
                                           </div>
                                       </div>
-                                      <button class="col-lg-12" id="submit">
-                                          <div class="btn btn-inline">
-                                              <i class="icofont-water-drop"></i>
-                                              <span>add review</span>
-                                              
-                                          </div>
-                                         
-                                      </button>
+                                      <!-- <input type="submit" id="submit"> -->
+                                      <button id="submit" class="btn btn-inline">
+                                        <i class="icofont-water-drop"></i>
+                                        <span>drop your review</span>
+                                    </button>
                                   </div>
                               </form>
                           </div>
@@ -421,11 +426,10 @@
               </div>
           </div>
       </section>
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script>
-            $(document).ready(function(){
-                    (document).on('submit','#reviewForm',function(event){
+        <script>
+      $(document).ready(function(){
+                    (document).on('#submit','#ReviewFrom',function(event){
                         event.preventDefault();
                         $.ajax({
                             type:$(this).attr('method'),
@@ -433,7 +437,7 @@
                             data:$(this).serialize(),
                             dataType:'json',
                             success:function(response){
-                                $('#reviewDiv').html(response['result'])
+                                $('#reviewDiv').html(response["result"])
                             },
                             error:function(err){
 
@@ -445,7 +449,7 @@
 
             }
             )
-      </script>
+     </script>
       <!--=====================================
                   INTRO PART END
       =======================================-->

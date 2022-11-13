@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
     path('proudct/', include('proudct.urls',namespace='proudct')),
+    path('orderes/', include('orders.urls',namespace='orders')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('api-auth/', include('rest_framework.urls')),
     
