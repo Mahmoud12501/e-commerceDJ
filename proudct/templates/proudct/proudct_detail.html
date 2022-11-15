@@ -243,8 +243,8 @@
                                               <textarea class="form-control" name="review" placeholder="Describe"></textarea>
                                           </div>
                                       </div>
-                                      <!-- <input type="submit" id="submit"> -->
-                                      <button id="submit" class="btn btn-inline">
+                                      <input type="submit" value="ADD">
+                                      <button type="submit" class="btn btn-inline">
                                         <i class="icofont-water-drop"></i>
                                         <span>drop your review</span>
                                     </button>
@@ -429,7 +429,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
       $(document).ready(function(){
-                    (document).on('#submit','#ReviewFrom',function(event){
+                    (document).on('submit','#ReviewFrom',function(event){
                         event.preventDefault();
                         $.ajax({
                             type:$(this).attr('method'),

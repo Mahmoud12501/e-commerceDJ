@@ -98,6 +98,7 @@ TEMPLATES = [
                 # app_name.file_nmae.function_name
                  'settings.company_context_processors.get_company_info',
                  'accounts.profile_context_processors.get_profile',
+                 'orders.cart_context_processors.get_or_creat_cart',
             ],
         },
     },

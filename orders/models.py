@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from utils.generatr_code import generate_code
+from utils.generatr_code import generate_code,generate_code_orderes
 from django.utils import timezone
 from django.utils.text import slugify
 from proudct.models import Proudct
@@ -16,13 +16,19 @@ STATUS=(
 )
 
 class Cart(models.Model):
-     code=models.CharField(max_length=8,default=generate_code)
+     code=models.CharField(max_length=8,default=generate_code_orderes)
      user=models.ForeignKey(User,related_name='user_cart',on_delete=models.SET_NULL,blank=True ,null=True)
     
      def save(self,*args,**kwargs):
         self.slug=slugify(self.code)
         super(Cart,self).save(*args,**kwargs)
-   
+    
+     def get_total(self):
+         total=0
+         for i in self.cart_detail.all():
+             total+=i.total
+         return total
+    
      def __str__(self) -> str:
         return self.code
 
@@ -30,7 +36,7 @@ class Cart(models.Model):
 class CartDetail(models.Model):
     cart=models.ForeignKey(Cart,related_name='cart_detail',on_delete=models.CASCADE)
     proudct=models.ForeignKey(Proudct,related_name='proudct_cart',on_delete=models.SET_NULL,blank=True ,null=True)
-    quantiy=models.IntegerField(max_length=10)
+    quantiy=models.IntegerField(default=0)
     price=models.FloatField(default=0)
     total=models.FloatField(default=0)
     slug=models.SlugField(max_length=80,blank=True,null=True,editable=False)
@@ -44,7 +50,7 @@ class CartDetail(models.Model):
 
 
 class Order(models.Model):
-    code=models.CharField(max_length=8,default=generate_code)
+    code=models.CharField(max_length=8,default=generate_code_orderes)
     user=models.ForeignKey(User,related_name='user_order',on_delete=models.SET_NULL,blank=True ,null=True)
     status=models.CharField(max_length=10,choices=STATUS)
     order_time=models.DateTimeField(default=timezone.now)
