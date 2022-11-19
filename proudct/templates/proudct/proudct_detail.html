@@ -220,10 +220,10 @@
               </div>
               <div class="tab-pane fade" id="tab-reve">
                   <div class="row">
-                      <div class="col-lg-12">
-                        <ul  id="reviewDiv" class="review-list" >
+                      <div class="col-lg-12" id="reviewDiv">
+                        
                           {% include 'include/reviews.html' %}
-                        </ul>
+                        
                           <div class="product-details-frame">
                               <h3 class="frame-title">add your review</h3>
                               <form class="review-form" method="POST" action={% url 'proudct:add_review' object.id %} id="ReviewFrom">
@@ -243,7 +243,7 @@
                                               <textarea class="form-control" name="review" placeholder="Describe"></textarea>
                                           </div>
                                       </div>
-                                      <input type="submit" value="ADD">
+                                      {% comment %} <input type="submit" value="ADD"> {% endcomment %}
                                       <button type="submit" class="btn btn-inline">
                                         <i class="icofont-water-drop"></i>
                                         <span>drop your review</span>

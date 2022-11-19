@@ -78,3 +78,20 @@ class OrderDetail(models.Model):
     
     def __str__(self) -> str:
         return str(self.order)
+    
+    
+class Cuopon(models.Model):
+     code=models.CharField(max_length= 10)
+     quantiy=models.IntegerField()
+     value=models.FloatField(default=0)
+     from_date=models.DateTimeField(default=timezone.now)
+     to_date=models.DateTimeField()
+     valid=models.BooleanField(default=True)
+     
+  
+     def __str__(self):
+        return self.code
+
+     class Meta:
+        verbose_name =("Cuopon")
+        verbose_name_plural =("Cuopons")

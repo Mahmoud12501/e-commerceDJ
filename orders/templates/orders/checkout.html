@@ -184,30 +184,14 @@
                                 </div>
                                 <div class="chekout-coupon">
                                     <button class="coupon-btn">Do you have a coupon code?</button>
-                                    <form class="coupon-form">
-                                        <input type="text" placeholder="Enter your coupon code">
+                                    <form class="coupon-form" method="POST" id="CouponForm">
+                                        {% csrf_token %}
+                                        <input type="text" name="code" placeholder="Enter your coupon code">
                                         <button type="submit"><span>apply</span></button>
                                     </form>
                                 </div>
-                                <div class="checkout-charge">
-                                    <ul>
-                                        <li>
-                                            <span>Sub total</span>
-                                            <span>$267.45</span>
-                                        </li>
-                                        <li>
-                                            <span>delivery fee</span>
-                                            <span>$10.00</span>
-                                        </li>
-                                        <li>
-                                            <span>discount</span>
-                                            <span>$00.00</span>
-                                        </li>
-                                        <li>
-                                            <span>Total<small>(Incl. VAT)</small></span>
-                                            <span>$277.00</span>
-                                        </li>
-                                    </ul>
+                                <div class="checkout-charge" id="RecpitDiv">
+                                    {% include 'include/recpit.html' %}
                                 </div>
                             </div>
                         </div>
@@ -622,5 +606,29 @@
                     INTRO PART END
         =======================================-->
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+      $(document).ready(function(){
+                    (document).on('submit','#CouponForm',function(event){
+                        event.preventDefault();
+                        $.ajax({
+                            type:$(this).attr('method'),
+                            url:$" {% url 'orders:checkout' %} ",
+                            data:$(this).serialize(),
+                            dataType:'json',
+                            success:function(response){
+                                $("#RecpitDiv").html(response["result"])
+                            },
+                            error:function(err){
+
+                                console.log(err);
+                            }
+                        })
+
+                    })
+
+            }
+            )
+     </script>
 
 {% endblock body %}
