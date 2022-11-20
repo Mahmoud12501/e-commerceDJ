@@ -21,6 +21,12 @@ def add_catr(request):
         cart_detail.total=int(proudct.price)*int(quantity)
         cart_detail.save()
         print("save3")
+        
+        cart=Cart.objects.get(user=request.user)
+        
+        
+        html=render_to_string("include/recpit.html",{"cart_data":cart, request:request})
+        return JsonResponse({"result":html,"total":cart.get_total()})
 
 def order_list(request):
     orders=Order.objects.filter(user=request.user)

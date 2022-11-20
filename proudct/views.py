@@ -110,7 +110,7 @@ def add_review(request,id):
             
             reviews=ProudctReview.objects.filter(proudct=proudct)
             html=render_to_string("include/reviews.html",{"reviews":reviews, request:request})
-            return JsonResponse({"result":html})
+            return JsonResponse({'result':html})
         
 class ProudctDetailView2(DetailView):
     model = Proudct

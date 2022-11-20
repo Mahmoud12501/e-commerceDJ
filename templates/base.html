@@ -167,7 +167,7 @@
                         <button class="header-widget header-cart" title="Cartlist">
                             <i class="fas fa-shopping-basket"></i>
                             <sup>{{cart_data.cart_detail.all|length}}+</sup>
-                            <span>total price<small>${{cart_data.get_total}}</small></span>
+                            <span >total price<small id="total_price">${{cart_data.get_total}}</small></span>
                         </button>
                     </div>
                 </div>
@@ -520,49 +520,8 @@
         <!--=====================================
                   CART SIDEBAR PART START
         =======================================-->
-        <aside class="cart-sidebar">
-            <div class="cart-header">
-                <div class="cart-total">
-                    <i class="fas fa-shopping-basket"></i>
-                    <span>total item ({{cart_data.cart_detail.all|length}})</span>
-                </div>
-                <button class="cart-close"><i class="icofont-close"></i></button>
-            </div>
-            <ul class="cart-list">
-                {% for item in cart_data.cart_detail.all  %}
-                <li class="cart-item">
-                    <div class="cart-media">
-                        <a href="#"><img src="{{item.proudct.img.url}}" alt="product"></a>
-                        <button class="cart-delete"><i class="far fa-trash-alt"></i></button>
-                    </div>
-                    <div class="cart-info-group">
-                        <div class="cart-info">
-                            <h6><a href="product-single.html">{{item.proudct}}</h6>
-                            <p>Unit Price - ${{item.price}}</p>
-                        </div>
-                        <div class="cart-action-group">
-                            <div class="product-action">
-                                <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item.quantiy}}">
-                                <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                            </div>
-                            <h6>${{item.total}}</h6>
-                        </div>
-                    </div>
-                </li> 
-               {% endfor %}
-            </ul>
-            <div class="cart-footer">
-                <button class="coupon-btn">Do you have a coupon code?</button>
-                <form class="coupon-form">
-                    <input type="text" placeholder="Enter your coupon code">
-                    <button type="submit"><span>apply</span></button>
-                </form>
-                <a class="cart-checkout-btn" href="{% url 'orders:checkout' %}">
-                    <span class="checkout-label">Proceed to Checkout</span>
-                    <span class="checkout-price">${{cart_data.get_total}}</span>
-                </a>
-            </div>
+        <aside id="cart_sidebar" class="cart-sidebar">
+           {% include "cart_include.html" %}
         </aside>
         <!--=====================================
                     CART SIDEBAR PART END
